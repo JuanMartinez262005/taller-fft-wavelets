@@ -1,0 +1,22 @@
+# Imagen original del JWST: pesa demasiado (GitHub rechaza archivos de más de 100 MB)
+data/*.tif
+data/*.tiff
+data/*.fits
+data/*.fit
+data/*.fz
+
+# Python y Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# Se regeneran al ejecutar construir.py
+resultados_pasada1.json
+
+# Windows y editores
+Thumbs.db
+desktop.ini
+~$*
+.vscode/

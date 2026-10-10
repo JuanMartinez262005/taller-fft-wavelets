@@ -1,0 +1,10 @@
+numpy
+scipy
+matplotlib
+pandas
+PyWavelets
+scikit-image
+astropy
+jupyter
+wfdb
+imagecodecs

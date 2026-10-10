@@ -1,0 +1,52 @@
+%%{init: {"theme": "base", "themeVariables": {"fontSize": "17px", "fontFamily": "Helvetica, Arial, sans-serif", "lineColor": "#555"}, "flowchart": {"curve": "basis", "nodeSpacing": 35, "rankSpacing": 80, "htmlLabels": true}}}%%
+flowchart TB
+    ROOT(["<b>Representación compacta de datos y señales</b><br/>x ≈ Σ<sub>k</sub> c<sub>k</sub> φ<sub>k</sub> : elegir la base φ y truncar a M términos"]):::raiz
+
+    N1["<b>① Reducción de dimensionalidad</b>"]:::n1
+    N2["<b>② Bases adaptativas vs. rígidas</b>"]:::n2
+    N3["<b>③ Localización espacio/tiempo–frecuencia</b>"]:::n3
+    N4["<b>④ Criterios de truncamiento y sparsity</b>"]:::n4
+    N5["<b>⑤ Aplicaciones en ML y Física</b>"]:::n5
+
+    ROOT --> N1 & N2 & N3 & N4 & N5
+
+    N1 --> N1a["<b>Lineales</b>: PCA, SVD, MDS clásico<br/>proyección ortogonal x̂ = U<sub>k</sub>U<sub>k</sub><sup>T</sup>x"]:::h1
+    N1 --> N1b["<b>No lineales</b>: Kernel-PCA, Isomap,<br/>t-SNE / UMAP, autoencoders"]:::h1
+    N1 --> N1c["<b>Eckart–Young</b>: X<sub>k</sub> es la mejor<br/>aproximación de rango k"]:::h1
+
+    N2 --> N2a["<b>Adaptativas</b> (dependen de los datos)<br/>SVD · PCA · Karhunen–Loève"]:::h2
+    N2 --> N2b["<b>Rígidas</b> (fijas, universales)<br/>Fourier · DCT · Wavelets"]:::h2
+    N2 --> N2c["<b>Compromiso</b>: óptima en MSE vs.<br/>coste, entrenamiento, universalidad"]:::h2
+
+    N3 --> N3a["<b>Fourier</b>: frecuencia pura, soporte global<br/>Δω → 0 pero Δt → ∞"]:::h3
+    N3 --> N3b["<b>STFT / Gabor</b>: ventana fija<br/>resolución t–f uniforme"]:::h3
+    N3 --> N3c["<b>Wavelets</b>: multirresolución, soporte compacto<br/>Δt·Δω ≥ 1/2 (Heisenberg–Gabor)"]:::h3
+
+    N4 --> N4a["<b>Varianza explicada</b><br/>Σ<sub>i≤k</sub>σ<sub>i</sub>² / Σσ<sub>i</sub>² ≥ 95 %"]:::h4
+    N4 --> N4b["<b>Umbralizado de energía</b><br/>duro / suave S<sub>λ</sub>(w)"]:::h4
+    N4 --> N4c["<b>Norma L2 vs. L1</b><br/>L2: Parseval, MSE · L1: sparsity"]:::h4
+
+    N5 --> N5a["<b>Denoising</b> y<br/><b>compresión</b> (JPEG, JPEG2000)"]:::h5
+    N5 --> N5b["<b>Extracción de características</b><br/>eigenfaces, rasgos wavelet"]:::h5
+    N5 --> N5c["<b>Modos propios</b>: POD (SVD de snapshots)<br/>y DMD (modos con frecuencia y tasa)"]:::h5
+
+    N1 -. "la proyección elige un subespacio, es decir, una base" .-> N2
+    N2 -. "Fourier: soporte global · Wavelets: soporte compacto" .-> N3
+    N3 -. "localización ⇒ pocos coeficientes grandes (sparsity)" .-> N4
+    N2 -. "base adaptada ⇒ σ<sub>i</sub> y |c<sub>k</sub>| decaen rápido" .-> N4
+    N4 -. "k se elige por varianza explicada ≥ 95 %" .-> N1
+    N4 -. "el umbral λ controla denoising y compresión" .-> N5
+    N1 -. "SVD / PCA ⇒ eigenfaces, POD" .-> N5
+    N3 -. "señales no estacionarias, imágenes" .-> N5
+
+    classDef raiz fill:#1f2937,stroke:#111,color:#fff,stroke-width:2px
+    classDef n1 fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#0b1f4d
+    classDef n2 fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#0b3d1d
+    classDef n3 fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#4d2d00
+    classDef n4 fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#4d0b2c
+    classDef n5 fill:#ede9fe,stroke:#7c3aed,stroke-width:2px,color:#2a0b5c
+    classDef h1 fill:#eff6ff,stroke:#2563eb,color:#0b1f4d
+    classDef h2 fill:#f0fdf4,stroke:#16a34a,color:#0b3d1d
+    classDef h3 fill:#fffbeb,stroke:#d97706,color:#4d2d00
+    classDef h4 fill:#fdf2f8,stroke:#db2777,color:#4d0b2c
+    classDef h5 fill:#f5f3ff,stroke:#7c3aed,color:#2a0b5c
